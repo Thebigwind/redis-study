@@ -13,6 +13,15 @@ Warning: Using a password with '-a' or '-u' option on the command line interface
     2) "{\"action\":\"xztoken\",\"userid\":\"73902623031298\",\"mobile\":\"17791578510\",\"email\":\"\",\"idcardno\":\"610524199804153620\",\"device\":\"\",\"ali_buyer_email\":\"\",\"ali_buyer_id\":\"\",\"ip\":\"10.4.10.17\"}"
        10.4.10.17:6379>
 
+查看队列长度
+
+    10.4.10.17:6379> LLEN queue_task_UserUniqueVerifyActiveRecordTask
+    (integer) 175463
+    10.4.10.17:6379>
+    10.4.10.17:6379> LLEN queue_task_UserUniqueVerifyActiveRecordTask
+    (integer) 175463
+    10.4.10.17:6379> LLEN queue_task_UserUniqueVerifyActiveRecordTask
+    (integer) 175464
 
 
 
