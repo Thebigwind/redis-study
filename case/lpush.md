@@ -1,6 +1,3 @@
-lpush lrange, 
-rpush, rrange
-
 
 
 luxuefengdeMacBook-Pro:~ luxuefeng$ redis-cli -h 10.4.10.17 -p 6379 -a 9f83d4682ba8b962
@@ -80,4 +77,78 @@ Warning: Using a password with '-a' or '-u' option on the command line interface
        OK
        127.0.0.1:6379> LRANGE aaa 0 1
     1) "bbb"
+       127.0.0.1:6379>
+
+
+LPUSH key value [value ...]
+
+将一个或多个值 value 插入到列表 key 的表头
+
+如果有多个 value 值，那么各个 value 值按从左到右的顺序依次插入到表头： 比如说，对空列表 mylist 执行命令 LPUSH mylist a b c ，列表的值将是 c b a ，这等同于原子性地执行 LPUSH mylist a 、 LPUSH mylist b 和 LPUSH mylist c 三个命令。
+
+如果 key 不存在，一个空列表会被创建并执行 LPUSH 操作。
+
+当 key 存在但不是列表类型时，返回一个错误
+
+
+# 加入单个元素
+
+redis> LPUSH languages python
+(integer) 1
+
+
+# 加入重复元素
+
+redis> LPUSH languages python
+(integer) 2
+
+redis> LRANGE languages 0 -1     # 列表允许重复元素
+1) "python"
+
+
+    127.0.0.1:6379>
+    127.0.0.1:6379> lpush que a
+    (integer) 1
+    127.0.0.1:6379> lpush que b
+    (integer) 2
+    127.0.0.1:6379> lpush que c
+    (integer) 3
+    127.0.0.1:6379> lrange que
+    (error) ERR wrong number of arguments for 'lrange' command
+    127.0.0.1:6379> lrange que 0 -1
+    1) "c"
+    2) "b"
+    3) "a"
+       127.0.0.1:6379> rrange que 0 -1
+       (error) ERR unknown command `rrange`, with args beginning with: `que`, `0`, `-1`,
+       127.0.0.1:6379>
+       127.0.0.1:6379> rrange que -1 0
+       (error) ERR unknown command `rrange`, with args beginning with: `que`, `-1`, `0`,
+       127.0.0.1:6379> lrange que 0 -1
+    1) "c"
+    2) "b"
+    3) "a"
+       127.0.0.1:6379> llen que
+       (integer) 3
+       127.0.0.1:6379>
+
+LPOP
+LPOP key
+
+移除并返回列表 key 的头元素。
+
+    127.0.0.1:6379> lrange que 0 -1
+    1) "c"
+    2) "b"
+    3) "a"
+       127.0.0.1:6379> llen que
+       (integer) 3
+       127.0.0.1:6379> lpop que
+       "c"
+       127.0.0.1:6379> rpop que
+       "a"
+       127.0.0.1:6379> rpop que
+       "b"
+       127.0.0.1:6379> rpop que
+       (nil)
        127.0.0.1:6379>
